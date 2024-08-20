@@ -1,6 +1,50 @@
-main{
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+* {
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(215, 244, 239);
+    background-color: chocolate;
+}
+
+main > h1 {
+    font-family: 'caveat', sans-serif;
+    color: wheat;
+}
+
+main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#content {
+    padding: 20px;
+}
+
+#play-button {
+    background-color: seagreen;
+    color: white;
+    border: 2px solid black;
+    border-radius: 5%;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+
+button {
+    border: none;
+    background: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: ease-in-out 0.1s;
+}
+
+button:hover {
+    margin-bottom: 40px;
+}
+
+img {
+    height: 50px;
+    width: 50px;
 }
