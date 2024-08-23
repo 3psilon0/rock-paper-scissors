@@ -105,13 +105,52 @@ playButton.addEventListener("click", playGame = () => {
 
     content.append(infoBox, choiceBox, textBox);
 
-    choiceBox.addEventListener("click", (e) => {
+    let makeChoice;
+    choiceBox.addEventListener("click", makeChoice = (e) => {
         if(e.target.id === "choice-box"){
             return;
         }
 
+        computerChoice = getComputerChoice();
+        switch(e.target.id){
+            case 'rock-button':
+            case 'rock':
+                playerChoice = 0
+                break;
+            case 'paper':
+            case 'paper-button':
+                playerChoice = 1;
+                break;
+            case 'scissors':
+            case 'scissors-button':
+                playerChoice = 2;
+                break;
+        }
+
+        textBox.innerText = `You chose ${choices[playerChoice]}\nComputer chose ${choices[computerChoice]}\n`;
+
+        roundOutcome = playRound(playerChoice, computerChoice);
+
+        switch(roundOutcome){
+            case 'draw':
+                textBox.innerText += "It's a draw, nobody wins.";
+                break;
+            case 'victory':
+                textBox.innerText += "You win! You get a point";
+                playerScore++;
+                break;
+            case 'loss':
+                textBox.innerText += "You lose! Computer gets a point";
+                computerScore++;
+                break;
+        }
+        pscore.innerText = `Player Score: ${playerScore}`;
+        cscore.innerText = `Computer Score: ${computerScore}`;
         curRound++;
+
         if(curRound > nRounds){
+            choiceBox.removeEventListener("click", makeChoice);
+
             const matchOver = document.createElement("h1");
             const winText = document.createElement("p");
             const lossText = document.createElement("p");
@@ -147,44 +186,8 @@ playButton.addEventListener("click", playGame = () => {
             });
             return;
         }
+
         round.innerText = `Round ${curRound}`;
-
-        computerChoice = getComputerChoice();
-
-        switch(e.target.id){
-            case 'rock-button':
-            case 'rock':
-                playerChoice = 0
-                break;
-            case 'paper':
-            case 'paper-button':
-                playerChoice = 1;
-                break;
-            case 'scissors':
-            case 'scissors-button':
-                playerChoice = 2;
-                break;
-        }
-
-        textBox.innerText = `You chose ${choices[playerChoice]}\nComputer chose ${choices[computerChoice]}\n`;
-
-        roundOutcome = playRound(playerChoice, computerChoice);
-
-        switch(roundOutcome){
-            case 'draw':
-                textBox.innerText += "It's a draw, nobody wins.";
-                break;
-            case 'victory':
-                textBox.innerText += "You win! You get a point";
-                playerScore++;
-                break;
-            case 'loss':
-                textBox.innerText += "You lose! Computer gets a point";
-                computerScore++;
-                break;
-        }
-        pscore.innerText = `Player Score: ${playerScore}`;
-        cscore.innerText = `Computer Score: ${computerScore}`;
     })
 
 })
