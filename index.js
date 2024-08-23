@@ -110,6 +110,44 @@ playButton.addEventListener("click", playGame = () => {
             return;
         }
 
+        curRound++;
+        if(curRound > nRounds){
+            const matchOver = document.createElement("h1");
+            const winText = document.createElement("p");
+            const lossText = document.createElement("p");
+            const drawText = document.createElement("p");
+            winText.innerText = "Congratulations! You have won the match!";
+            winText.style.cssText = "color:green;font-style:italic";
+            lossText.innerText = "What a shame. You have lost the match."
+            lossText.style.cssText = "color:red;font-style:italic";
+            drawText.innerText = "It's a tie! Nobody has won the match"
+            drawText.style.cssText = "color:yellow;font-style:italic";
+            matchOver.innerText = "The match is over!";
+            matchOver.style.cssText = "font-size:24px;font-weight:bold;text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;";
+            choiceBox.textContent = "";
+            choiceBox.style.cssText = "display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:black";
+            choiceBox.appendChild(matchOver);
+
+            if(playerScore > computerScore){
+                choiceBox.appendChild(winText);
+            }
+            else if(playerScore < computerScore){
+                choiceBox.appendChild(lossText);
+            }
+            else{
+                choiceBox.appendChild(drawText);
+            }
+
+            playButton.removeEventListener("click", quitGame);
+            playButton.removeEventListener("click", playGame);
+            playButton.style.backgroundColor = "goldenrod";
+            playButton.innerText = "Restart";
+            playButton.addEventListener("click", () => {
+                document.location.reload();
+            });
+            return;
+        }
+        round.innerText = `Round ${curRound}`;
 
         computerChoice = getComputerChoice();
 
@@ -147,47 +185,6 @@ playButton.addEventListener("click", playGame = () => {
         }
         pscore.innerText = `Player Score: ${playerScore}`;
         cscore.innerText = `Computer Score: ${computerScore}`;
-
-        if(curRound >= nRounds){
-            const matchOver = document.createElement("h1");
-            const winText = document.createElement("p");
-            const lossText = document.createElement("p");
-            const drawText = document.createElement("p");
-            winText.innerText = "Congratulations! You have won the match!";
-            winText.style.cssText = "color:green;font-style:italic";
-            lossText.innerText = "What a shame. You have lost the match."
-            lossText.style.cssText = "color:red;font-style:italic";
-            drawText.innerText = "It's a tie! Nobody has won the match"
-            drawText.style.cssText = "color:yellow;font-style:italic";
-            matchOver.innerText = "The match is over!";
-            matchOver.style.cssText = "font-size:24px;font-weight:bold;text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;";
-            choiceBox.textContent = "";
-            choiceBox.style.cssText = "display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:black";
-            choiceBox.appendChild(matchOver);
-
-            if(playerScore > computerScore){
-                choiceBox.appendChild(winText);
-            }
-            else if(playerScore < computerScore){
-                choiceBox.appendChild(lossText);
-            }
-            else{
-                choiceBox.appendChild(drawText);
-            }
-
-            playButton.removeEventListener("click", quitGame);
-            playButton.removeEventListener("click", playGame);
-            playButton.style.backgroundColor = "goldenrod";
-            playButton.innerText = "Restart";
-            playButton.addEventListener("click", () => {
-                document.location.reload();
-            });
-            return;
-        }
-        else{
-            curRound++;
-            round.innerText = `Round ${curRound}`;
-        }
     })
 
 })
